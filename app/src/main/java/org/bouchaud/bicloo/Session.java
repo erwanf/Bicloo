@@ -83,6 +83,11 @@ public class Session {
     queue.add(jsObjRequest);
   }
 
+  public String getStationNameById(int id) {
+
+    return null;
+  }
+
 
   public void getTownContracts(final TowncontractsListener listener){
 
