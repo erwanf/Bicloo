@@ -7,15 +7,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.bouchaud.bicloo.Session.BikeStationsListener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 public class MainActivity extends Activity{
 
-  private ScheduledExecutorService scheduleTaskExecutor;
+  public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
   private MainActivity self = this;
 
@@ -28,6 +30,15 @@ public class MainActivity extends Activity{
 
     bikesAdapter = new BikeStationListAdapter(self, new ArrayList<BikeStation>());
     ListView listView = (ListView) findViewById(R.id.listView1);
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent i = new Intent(MainActivity.this, TownContractListAdapter.class);
+        //String message = ;
+        //i.putExtra(EXTRA_MESSAGE, message);
+        startActivity(i);
+      }
+    });
     listView.setAdapter(bikesAdapter);
 
     this.askRefresh();

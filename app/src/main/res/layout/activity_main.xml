@@ -15,10 +15,12 @@
 
     <Button
         android:id="@+id/refreshButton"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Refresh" />
+        android:text="Refresh"
+        android:singleLine="false"
+        android:background="#00ffffff"/>
 
 </RelativeLayout>
