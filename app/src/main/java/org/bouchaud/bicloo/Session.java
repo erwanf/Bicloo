@@ -67,11 +67,15 @@ public class Session {
 
       @Override
       public void onErrorResponse(VolleyError error) {
-
         Log.d("xxx", error.toString());
       }
     });
 
     queue.add(jsObjRequest);
+  }
+
+  public String getStationNameById(int id) {
+
+    return null;
   }
 }

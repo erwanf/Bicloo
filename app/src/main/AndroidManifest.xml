@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.bouchaud.bicloo"
-
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -25,6 +23,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetailItem"
+            android:label="@string/title_activity_detail_item" >
         </activity>
     </application>
 
