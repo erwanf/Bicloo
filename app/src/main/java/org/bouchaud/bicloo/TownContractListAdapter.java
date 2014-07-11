@@ -33,7 +33,7 @@ public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
 
   public ArrayList<TownContract> getTownContracts() { return towns;  }
 
-  public void setTownContracts(ArrayList<TownContract> townContracts) {
+  public void setTowns(ArrayList<TownContract> townContracts) {
     this.towns = townContracts;
   }
 

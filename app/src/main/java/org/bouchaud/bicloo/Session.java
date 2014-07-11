@@ -22,14 +22,22 @@ public class Session {
   public static interface BikeStationsListener{
     public void bikeStationsUpdated(ArrayList<BikeStation> bikeStation);
   }
+
+  public static interface TowncontractsListener{
+    public void TownContractsUpdated(ArrayList<TownContract> townContracts);
+  }
+
   private static Session singleton;
 
   private Context context;
 
   private ArrayList<BikeStation> bikeStations;
+  private ArrayList<TownContract> townContracts;
+
 
   private Session(){
     bikeStations = new ArrayList<BikeStation>();
+    townContracts = new ArrayList<TownContract>();
   }
 
   public static Session getInstance(Context context){
@@ -74,4 +82,42 @@ public class Session {
 
     queue.add(jsObjRequest);
   }
+
+
+  public void getTownContracts(final TowncontractsListener listener){
+
+    String url = "https://api.jcdecaux.com/vls/v1/contracts?apiKey=8140bf73d8f086144a4b183680fb82704a8049c1";
+
+    RequestQueue queue = Volley.newRequestQueue(context);
+
+    JsonArrayRequest jsObjRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+      @Override
+      public void onResponse(JSONArray array) {
+
+        townContracts.clear();
+        for (int i = 0; i < array.length(); i++) {
+          JSONObject row = array.optJSONObject(i);
+          townContracts.add(new TownContract(row));
+        }
+
+        Collections.sort(townContracts, new Comparator<TownContract>(){
+          public int compare(TownContract t1, TownContract t2) {
+            return t1.getTownName().compareToIgnoreCase(t2.getTownName());
+          }
+        });
+        listener.TownContractsUpdated(townContracts);
+      }
+    }, new Response.ErrorListener() {
+
+      @Override
+      public void onErrorResponse(VolleyError error) {
+
+        Log.d("xxx", error.toString());
+      }
+    });
+
+    queue.add(jsObjRequest);
+  }
+
+
 }
