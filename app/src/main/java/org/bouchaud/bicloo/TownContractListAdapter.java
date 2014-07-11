@@ -17,39 +17,35 @@ import java.util.List;
 public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
 
 
-  private ArrayList<TownContract> townContracts;
+  private ArrayList<TownContract> towns;
 
   private Context context;
   private LayoutInflater mInflater;
   private boolean mNotifyOnChange = true;
 
 
-  public TownContractListAdapter(Context context, List<BikeStation> objects) {
+  public TownContractListAdapter(Context context, List<TownContract> objects) {
     super(context, R.layout.town_contract_row);
     this.context = context;
-    this.townContracts = new ArrayList<TownContract>(objects);
+    this.towns = new ArrayList<TownContract>(objects);
     this.mInflater = LayoutInflater.from(context);
   }
 
-  public ArrayList<TownContract> getTownContracts() {
-    return townContracts;
+  public ArrayList<TownContract> getTownContracts() { return towns;  }
+
+  public void setTownContracts(ArrayList<TownContract> townContracts) {
+    this.towns = townContracts;
   }
-
-  public void setBikes(ArrayList<TownContract> townContracts) {
-    this.townContracts = townContracts;
-  }
-
-
 
 
   @Override
   public int getCount() {
-    return townContracts.size();
+    return towns.size();
   }
 
   @Override
   public TownContract getItem(int position) {
-    return townContracts.get(position);
+    return towns.get(position);
   }
 
   @Override
@@ -58,8 +54,8 @@ public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
   }
 
   @Override
-  public int getPosition(BikeStation item) {
-    return townContracts.indexOf(item);
+  public int getPosition(TownContract item) {
+    return towns.indexOf(item);
   }
 
   @Override
@@ -81,9 +77,8 @@ public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
       holder = new ViewHolder();
       switch (type) {
         case 1:
-          convertView = mInflater.inflate(R.layout.bike_station_row, parent, false);
+          convertView = mInflater.inflate(R.layout.town_contract_row, parent, false);
           holder.name = (TextView) convertView.findViewById(R.id.textView_name);
-          holder.description = (TextView) convertView.findViewById(R.id.textView_description);
           break;
       }
       convertView.setTag(holder);
@@ -91,13 +86,10 @@ public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
       holder = (ViewHolder) convertView.getTag();
     }
 
-    BikeStation bikeStation = townContracts.get(position);
-    float full = (float) Math.min(((float)bikeStation.getAvailableBikesStands() / bikeStation.getBikeStands()) + 0.3, 1.0);
+    TownContract townContract = towns.get(position);
 
-    convertView.setBackgroundColor(Color.rgb(255, Math.round(255 * full), Math.round(255 * full)));
-    holder.name.setText(bikeStation.getName());
-    holder.description.setText(bikeStation.getAvailableBikesStands() + "/" +bikeStation.getBikeStands());
-    holder.pos = position;
+    holder.name.setText(townContract.getTownName());
+
     return convertView;
   }
 
@@ -116,7 +108,6 @@ public class TownContractListAdapter  extends ArrayAdapter<TownContract> {
   static class ViewHolder {
 
     TextView name;
-    TextView description;
     int pos; //to store the position of the item within the list
   }
 
